@@ -5,5 +5,8 @@
   "repository": "https://github.com/saurookadook/deeply-assign.git",
   "author": "Andy Maskiell <maskiella@gmail.com>",
   "license": "MIT",
-  "private": false
+  "private": false,
+  "devDependencies": {
+    "jest": "^29.5.0"
+  }
 }
