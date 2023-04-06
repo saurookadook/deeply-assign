@@ -7,10 +7,9 @@ export default {
         ],
         expected: { foo: 'bar', bar: 'baz', count: 3 }
     },
-    simpleCaseWithSkippableArgs: {
+    simpleCaseWithStringArgument: {
         target: {},
         args: [
-            {},
             "not an object",
             { bar: 'baz', count: 3 }
         ],
