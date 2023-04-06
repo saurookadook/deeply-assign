@@ -1,0 +1,9 @@
+{
+  "name": "deeply-assign",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/saurookadook/deeply-assign.git",
+  "author": "Andy Maskiell <maskiella@gmail.com>",
+  "license": "MIT",
+  "private": false
+}
