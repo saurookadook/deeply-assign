@@ -5,11 +5,11 @@ Object.prototype.deeplyAssign = (function() {
     let currentRecursiveCallDepth = 0;
 
     _this.isObject = function isObject(val) {
-        return typeof val === "object" && val != null && !Array.isArray(val);
-    }
+        return typeof val === 'object' && val != null && !Array.isArray(val);
+    };
 
     _this.deeplyMerge = function deeplyMerge(target, ...args) {
-        currentRecursiveCallDepth = (typeof args[args.length - 1] === "number") ? args[args.length - 1] : currentRecursiveCallDepth + 1;
+        currentRecursiveCallDepth = (typeof args[args.length - 1] === 'number') ? args[args.length - 1] : currentRecursiveCallDepth + 1;
 
         const objects = args.reduce((acc, cur) => {
             if (!_this.isObject(cur)) {
@@ -33,11 +33,7 @@ Object.prototype.deeplyAssign = (function() {
                     }
 
                     if (Array.isArray(v)) {
-                        if (target[k]) {
-                            target[k] = [...target[k], ...v];
-                        } else {
-                            target[k] = v;
-                        }
+                        target[k] = target[k] ? [...target[k], ...v] : v;
 
                         continue;
                     }
@@ -48,7 +44,7 @@ Object.prototype.deeplyAssign = (function() {
         }
 
         return target;
-    }
+    };
 
     return _this.deeplyMerge;
 
