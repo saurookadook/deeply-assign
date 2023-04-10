@@ -1,154 +1,162 @@
 export default {
-    simpleCase: {
-        target: {},
-        args: [
-            {
-                foo: 'bar'
-            },
-            {
-                bar: 'baz', count: 3
-            }
-        ],
-        expected: {
-            foo: 'bar', bar: 'baz', count: 3
-        }
-    },
-    simpleCaseWithStringArgument: {
-        target: {},
-        args: [
-            'not an object',
-            {
-                bar: 'baz', count: 3
-            }
-        ],
-        expected: {
-            bar: 'baz', count: 3
-        }
-    },
-    caseWithArrays: {
-        target: {
-            bar: '', count: 1
-        },
-        args: [
-            {
-                foo: 'bar', cats: [
-                    {
-                        name: 'Buddy', age: 6
-                    }
-                ]
-            },
-            {
-                bar: 'baz', count: 3
-            },
-            {
-                cats: [{
-                    name: 'Gordo', age: 8
-                }, {
-                    name: 'Zero', age: 8
-                }], foo: 'meow'
-            },
-            {
-                count: 6, bar: 'woof'
-            }
-        ],
-        expected: {
-            foo: 'meow',
-            cats: [
+    simpleCase: () => {
+        return {
+            target: {},
+            sources: [
                 {
-                    name: 'Buddy', age: 6
+                    foo: 'bar'
                 },
                 {
-                    name: 'Gordo', age: 8
-                },
-                {
-                    name: 'Zero', age: 8
+                    bar: 'baz', count: 3
                 }
             ],
-            count: 6,
-            bar: 'woof'
-        }
+            expected: {
+                foo: 'bar', bar: 'baz', count: 3
+            }
+        };
     },
-    caseWithArraysAndNesting: {
-        target: {
-            config: {
-                a: 'bb',
-                c: 'ab',
-                z: true,
-                config: {
-                    _a: 'bb',
-                    _c: 'ab'
+    simpleCaseWithStringArgument: () => {
+        return {
+            target: {},
+            sources: [
+                'not an object',
+                {
+                    bar: 'baz', count: 3
                 }
+            ],
+            expected: {
+                bar: 'baz', count: 3
+            }
+        };
+    },
+    caseWithArrays: () => {
+        return {
+            target: {
+                bar: '', count: 1
             },
-            cats: [{
-                name: 'Buddy', age: 6
-            }]
-        },
-        args: [
-            {
+            sources: [
+                {
+                    foo: 'bar', cats: [
+                        {
+                            name: 'Buddy', age: 6
+                        }
+                    ]
+                },
+                {
+                    bar: 'baz', count: 3
+                },
+                {
+                    cats: [{
+                        name: 'Gordo', age: 8
+                    }, {
+                        name: 'Zero', age: 8
+                    }], foo: 'meow'
+                },
+                {
+                    count: 6, bar: 'woof'
+                }
+            ],
+            expected: {
+                foo: 'meow',
+                cats: [
+                    {
+                        name: 'Buddy', age: 6
+                    },
+                    {
+                        name: 'Gordo', age: 8
+                    },
+                    {
+                        name: 'Zero', age: 8
+                    }
+                ],
+                count: 6,
+                bar: 'woof'
+            }
+        };
+    },
+    caseWithArraysAndNesting: () => {
+        return {
+            target: {
+                config: {
+                    a: 'bb',
+                    c: 'ab',
+                    z: true,
+                    config: {
+                        _a: 'bb',
+                        _c: 'ab'
+                    }
+                },
+                cats: [{
+                    name: 'Buddy', age: 6
+                }]
+            },
+            sources: [
+                {
+                    config: {
+                        a: 'm',
+                        c: 'i',
+                        z: false,
+                        config: {
+                            cats: [{
+                                name: 'Grumpy', age: 100
+                            }]
+                        }
+                    }
+                },
+                {
+                    config: {
+                        config: {
+                            _a: 'n',
+                            _b: 'on',
+                            _c: 'pp',
+                            cats: [{
+                                name: 'Justabby', age: 1
+                            }]
+                        },
+                    },
+                    cats: [{
+                        name: 'Gordo', age: 8
+                    }, {
+                        name: 'Zero', age: 8
+                    }]
+                }
+            ],
+            expected: {
                 config: {
                     a: 'm',
                     c: 'i',
                     z: false,
                     config: {
-                        cats: [{
-                            name: 'Grumpy', age: 100
-                        }]
-                    }
-                }
-            },
-            {
-                config: {
-                    config: {
                         _a: 'n',
                         _b: 'on',
                         _c: 'pp',
-                        cats: [{
-                            name: 'Justabby', age: 1
-                        }]
+                        cats: [
+                            {
+                                name: 'Grumpy', age: 100
+                            },
+                            {
+                                name: 'Justabby', age: 1
+                            }
+                        ]
+                    }
+                },
+                cats: [
+                    {
+                        name: 'Buddy', age: 6
                     },
-                },
-                cats: [{
-                    name: 'Gordo', age: 8
-                }, {
-                    name: 'Zero', age: 8
-                }]
+                    {
+                        name: 'Gordo', age: 8
+                    },
+                    {
+                        name: 'Zero', age: 8
+                    }
+                ]
             }
-        ],
-        expected: {
-            config: {
-                a: 'm',
-                c: 'i',
-                z: false,
-                config: {
-                    _a: 'n',
-                    _b: 'on',
-                    _c: 'pp',
-                    cats: [
-                        {
-                            name: 'Grumpy', age: 100
-                        },
-                        {
-                            name: 'Justabby', age: 1
-                        }
-                    ]
-                }
-            },
-            cats: [
-                {
-                    name: 'Buddy', age: 6
-                },
-                {
-                    name: 'Gordo', age: 8
-                },
-                {
-                    name: 'Zero', age: 8
-                }
-            ]
-        }
+        };
     },
     // {
     //     target: {},
-    //     args: [
+    //     sources: [
     //         { foo: 'bar' },
     //         { bar: 'baz', count: 3 }
     //     ],
