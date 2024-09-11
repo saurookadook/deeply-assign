@@ -18,7 +18,7 @@ export function deeplyAssign(target, ...sources) {
                 throw new Error(`deeplyMerge - Max recursive call depth of ${maxRecursiveCallDepth} exceeded!`);
             }
 
-            return _this.deeplyMerge(targetK || {}, objectK);
+            return _this.isObject(targetK) ? _this.deeplyMerge(targetK || {}, objectK) : valueK;
         }
 
         if (Array.isArray(valueK)) {
@@ -29,6 +29,7 @@ export function deeplyAssign(target, ...sources) {
     };
 
     _this.deeplyMerge = function deeplyMerge(target, ...sources) {
+        // TODO: finish implementing this or remove
         currentRecursiveCallDepth = (typeof sources[sources.length - 1] === 'number') ? sources[sources.length - 1] : currentRecursiveCallDepth + 1;
 
         const objects = sources.reduce((acc, cur) => {
@@ -93,7 +94,7 @@ export function deeplyAssignWith(target, sources, callback) {
                 throw new Error(`deeplyMerge - Max recursive call depth of ${maxRecursiveCallDepth} exceeded!`);
             }
 
-            return _this.deeplyMerge(targetK || {}, objectK);
+            return _this.isObject(targetK) ? _this.deeplyMerge(targetK || {}, objectK) : valueK;
         }
 
         if (Array.isArray(valueK)) {
