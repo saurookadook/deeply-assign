@@ -74,6 +74,24 @@ export default {
             }
         };
     },
+    caseWithDifferingTypes: () => {
+        return {
+            target: {
+                truthy: 'true',
+                falsy: 0
+            },
+            sources: [
+                {
+                    truthy: {},
+                    falsy: '',
+                }
+            ],
+            expected: {
+                truthy: {},
+                falsy: ''
+            }
+        };
+    },
     caseWithArraysAndNesting: () => {
         return {
             target: {

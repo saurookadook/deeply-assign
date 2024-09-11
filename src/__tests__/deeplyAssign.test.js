@@ -1,32 +1,20 @@
 /**
  * @jest-environment node
  */
-// import {
-//     deeplyAssign,
-//     deeplyAssignWith
-// } from '../index.js';
 import defaultDeeplyAssignExport,
 {
     deeplyAssign, deeplyAssignWith
 } from '../index.js';
 import testCases from '../__mocks__/testCases.js';
-import { debugLogger } from '../../test-utils/index.js';
 
 describe('deeplyAssign', () => {
-    const {
-        simpleCase,
-        simpleCaseWithStringArgument,
-        caseWithArrays,
-        caseWithArraysAndNesting
-    } = testCases;
-
     describe('as extension of Object prototype', () => {
         it('handles multiple object arguments', () => {
             const {
                 target,
                 sources,
                 expected
-            } = simpleCase();
+            } = testCases.simpleCase();
             const result = Object.deeplyAssign(target, ...sources);
 
             expect(result.bar).toBe(expected.bar);
@@ -40,7 +28,7 @@ describe('deeplyAssign', () => {
                 target,
                 sources,
                 expected
-            } = simpleCaseWithStringArgument();
+            } = testCases.simpleCaseWithStringArgument();
             const result = Object.deeplyAssign(target, ...sources);
 
             expect(warnSpy).toHaveBeenCalled();
@@ -53,7 +41,7 @@ describe('deeplyAssign', () => {
                 target,
                 sources,
                 expected
-            } = caseWithArrays();
+            } = testCases.caseWithArrays();
             const result = Object.deeplyAssign(target, ...sources);
 
             expect(result.bar).toBe(expected.bar);
@@ -62,12 +50,24 @@ describe('deeplyAssign', () => {
             expect(result.cats).toHaveLength(expected.cats.length);
         });
 
+        it('handles objects with differing types for same properties', () => {
+            const {
+                target,
+                sources,
+                expected
+            } = testCases.caseWithDifferingTypes();
+            const result = Object.deeplyAssign(target, ...sources);
+
+            expect(result.truthy).toStrictEqual(expected.truthy);
+            expect(result.falsy).toBe(expected.falsy);
+        });
+
         it('handles objects that have arrays and nested objects without mutating nested references', () => {
             const {
                 target,
                 sources,
                 expected
-            } = caseWithArraysAndNesting();
+            } = testCases.caseWithArraysAndNesting();
             const result = Object.deeplyAssign(target, ...sources);
 
             expect(result.cats).toHaveLength(expected.cats.length);
@@ -87,7 +87,7 @@ describe('deeplyAssign', () => {
                 target,
                 sources,
                 expected
-            } = simpleCase();
+            } = testCases.simpleCase();
             const result = deeplyAssign(target, ...sources);
 
             expect(result.bar).toBe(expected.bar);
@@ -101,7 +101,7 @@ describe('deeplyAssign', () => {
                 target,
                 sources,
                 expected
-            } = simpleCaseWithStringArgument();
+            } = testCases.simpleCaseWithStringArgument();
             const result = deeplyAssign(target, ...sources);
 
             expect(warnSpy).toHaveBeenCalled();
@@ -114,7 +114,7 @@ describe('deeplyAssign', () => {
                 target,
                 sources,
                 expected
-            } = caseWithArrays();
+            } = testCases.caseWithArrays();
             const result = deeplyAssign(target, ...sources);
 
             expect(result.bar).toBe(expected.bar);
@@ -128,7 +128,7 @@ describe('deeplyAssign', () => {
                 target,
                 sources,
                 expected
-            } = caseWithArraysAndNesting();
+            } = testCases.caseWithArraysAndNesting();
             const result = deeplyAssign(target, ...sources);
 
             expect(result.cats).toHaveLength(expected.cats.length);
